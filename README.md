@@ -13,6 +13,9 @@ for it to actually run reliably.
 ## TL;DR
 
 ```bash
+# Step 0 — edit App/config.py for THIS device (see the table below).
+#          At minimum: DUMP_PATH must match this user's data-drive mount.
+
 # One time, with sudo — sets up kernel / udev / systemd / sudoers.
 sudo bash setup-system.sh
 
@@ -40,6 +43,51 @@ change took effect.
 | Hesai LiDAR on `192.168.1.201`, host NIC on `192.168.1.23` | Configured in `App/config.py` — change there if your subnet differs |
 | Xsens MTi on `/dev/ttyUSB0` (FTDI USB-UART, VID `0403`, PID `6001`) at 2 Mbaud | Configured in `App/config.py` |
 | Data drive mounted at `/media/<user>/DATA` (`DUMP_PATH` in config.py) | NTFS works but ext4 is strongly recommended |
+
+---
+
+## Step 0 — Configure `App/config.py` for this device
+
+All device-specific values live in `App/config.py`. Edit them **before**
+the first launch (a restart picks up changes; `DEVICE` and DEV mode can
+also be changed later from the in-app Supervisor tools). The installer
+scripts do **not** read or rewrite these — they are the app's runtime
+knobs, so changing them is a manual, one-time step per device.
+
+> **The `.desktop` launcher needs no manual edit.** It used to hardcode
+> `/home/cm5-v1/...`; it now carries an `__APP_DIR__` placeholder that
+> `install.sh` substitutes with this device's actual path at install
+> time. Just clone the repo wherever you like and run `install.sh`.
+
+### Almost always needs changing on a new device
+
+| Parameter | Default | Change to |
+|---|---|---|
+| `DUMP_PATH` | `/media/cm5-v1/DATA` | `/media/<your-user>/DATA` — the data drive auto-mounts under the **login user's** name, so this is wrong on any device whose user isn't `cm5-v1`. **This is the #1 thing to fix.** |
+| `DEVICE` | `'LITHIC_PRO_V2'` | The identifier for this unit (embedded in bag filenames + `scan_info.json`). Can also be set later via Supervisor → Edit Device ID. |
+
+### Change only if your hardware / network / ROS layout differs
+
+| Parameter | Default | When to change |
+|---|---|---|
+| `LIDAR_IP` | `192.168.1.201` | If the Hesai is on a different IP/subnet. |
+| `LIDAR_HOST_IP` | `192.168.1.23` | The host NIC IP the readiness probe expects. Set to `''` to skip that sanity check entirely. |
+| `XSENS_SERIAL_PORT` | `/dev/ttyUSB0` | If the IMU enumerates elsewhere. Use the `/dev/serial/by-id/...` form to lock to one specific cable when multiple FTDI devices are present. |
+| `XSENS_FTDI_VID` / `XSENS_FTDI_PID` | `0403` / `6001` | Only if the USB-UART adapter is not an FT232R. |
+| `XSENS_SERIAL_BAUD` | `2000000` | Only if the IMU is configured at a different baud. |
+| `SETUP_BASH` | `~/catkin_hesai_ros2/devel/setup.bash` | If the catkin workspace lives elsewhere. (`~` expands per-user, so the path is already portable across usernames.) |
+| `LAUNCH_FILE` | `~/catkin_hesai_ros2/lidar_imu_record.launch` | If the launch file has a different name/location. |
+| `DRIVER_NODES` | `hesai`/`xsens`/`rosbag` → node names | Must match the exact node names your launch file registers (check with `rosnode list`). In particular the recorder must be `/rosbag_record`, or the QA watchdog will think recording never started and auto-terminate every scan. |
+| `DRIVERS` | per-topic count thresholds | Only if your sensor rates or topic names differ from 20 Hz LiDAR / 200 Hz IMU. |
+| `MIN_DISK_GB` | `5` | Minimum free space on the data drive before QA auto-stops a scan. |
+| `DISPLAY_RESOLUTION` | `None` | Set to e.g. `(1920, 1080)` to force a kiosk resolution; `None` uses the screen's native size. |
+| `DEV_MODE` | `False` | Set `True` only to run the GUI with mocked hardware (no ROS / no sensors). Leave `False` in production. |
+
+After editing, you can sanity-check the file parses cleanly:
+
+```bash
+python3 -m py_compile App/config.py && echo "config.py OK"
+```
 
 ---
 
