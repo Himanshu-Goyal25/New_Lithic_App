@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=INKERS Data Collector
+GenericName=Multi-sensor Scanner
+Comment=LITHIC PRO V2 — Hesai LiDAR + Xsens IMU + Seek Thermal data collection
+Exec=/bin/bash __APP_DIR__/run.sh
+Path=__APP_DIR__
+Icon=__APP_DIR__/App/Images/2739025.png
+Terminal=false
+Categories=Science;Utility;Engineering;
+StartupNotify=true
+StartupWMClass=lithic-pro-v2-collector
+Keywords=lidar;ros;scan;inkers;

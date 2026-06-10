@@ -1,0 +1,300 @@
+/* ============================================================
+   Global QSS template — loaded via str.format(**palette)
+   {{ }} are escaped braces; {{TOKEN}} resolves to a hex value.
+   ============================================================ */
+
+/* ---- Global defaults ---- */
+QWidget {{
+    background: {BG};
+    color: {TEXT};
+    font-family: "Inter", "Segoe UI", "Helvetica Neue", sans-serif;
+    font-size: 13px;
+}}
+
+/* QLabel must never draw its own background — it should inherit the
+   visual background of its parent panel. Otherwise on dark theme each
+   label paints a small BG-coloured rectangle that contrasts with
+   PANEL_BG / SIDEBAR_BG and looks like an outline. */
+QLabel {{
+    background-color: transparent;
+    background: transparent;
+    border: 0px solid transparent;
+}}
+QLabel:focus {{ outline: 0; }}
+
+/* ---- Header (shared by form + player) ---- */
+QWidget#header, QWidget#playerHeader {{
+    background: {PANEL_BG};
+    border-bottom: 1px solid {BORDER};
+}}
+QLabel#headerTitle, QLabel#playerDevice {{
+    color: {TEXT};
+    font-size: 15px;
+    font-weight: 700;
+}}
+QLabel#headerClock {{
+    color: {SUBTLE};
+    font-size: 13px;
+}}
+QLabel#playerMeta {{
+    color: {SUBTLE};
+    font-size: 12px;
+}}
+QLabel#statusDot {{
+    font-size: 13px;
+}}
+
+/* ---- Form body ---- */
+QWidget#formBody {{
+    background: {BG};
+}}
+QLabel#formTitle {{
+    color: {TEXT};
+    font-size: 20px;
+    font-weight: 700;
+}}
+QLabel#fieldLabel {{
+    color: {LABEL};
+    font-size: 12px;
+    font-weight: 600;
+}}
+QLabel#errLabel {{
+    color: {DANGER};
+    font-size: 11px;
+}}
+
+/* ---- Inputs ---- */
+QLineEdit#formField, QSpinBox#spinBox {{
+    background: {INPUT_BG};
+    border: 1px solid {BORDER};
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: {TEXT};
+    font-size: 13px;
+    min-height: 22px;
+}}
+QLineEdit#formField:focus, QSpinBox#spinBox:focus {{
+    border-color: {PRIMARY};
+}}
+QLineEdit#formField:disabled, QSpinBox#spinBox:disabled {{
+    background: {DISABLED_BG};
+    color: {DISABLED_TEXT};
+}}
+
+QComboBox#formCombo {{
+    background: {INPUT_BG};
+    border: 1px solid {BORDER};
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: {TEXT};
+    font-size: 13px;
+    min-height: 38px;
+}}
+QComboBox#formCombo:hover {{
+    background: {COMBO_HOVER};
+}}
+QComboBox#formCombo::drop-down {{
+    border: none;
+    width: 24px;
+}}
+QComboBox#formCombo QAbstractItemView {{
+    background: {INPUT_BG};
+    border: 1px solid {BORDER};
+    selection-background-color: {PRIMARY};
+    selection-color: white;
+    color: {TEXT};
+    outline: none;
+}}
+
+/* ---- Spin +/- buttons ---- */
+QPushButton#spinBtn {{
+    background: {PANEL_BG};
+    border: 1px solid {BORDER};
+    border-radius: 6px;
+    color: {TEXT};
+    font-size: 18px;
+    font-weight: 700;
+}}
+QPushButton#spinBtn:hover    {{ background: {BTN_HOVER_WASH}; }}
+QPushButton#spinBtn:pressed  {{ background: {BORDER}; }}
+QPushButton#spinBtn:disabled {{ background: {DISABLED_BG}; color: {DISABLED_TEXT}; }}
+
+/* ---- Primary proceed (Start →) ---- */
+QPushButton#proceedBtn {{
+    background: {PRIMARY};
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 24px;
+}}
+QPushButton#proceedBtn:hover   {{ background: {PRIMARY_DARK}; }}
+QPushButton#proceedBtn:pressed {{ background: {PRIMARY_PRESSED}; }}
+
+/* ---- Disk label ---- */
+QLabel#diskLabel {{
+    color: {SUBTLE};
+    font-size: 12px;
+}}
+
+/* ---- Video panel ---- */
+QWidget#videoPanel {{
+    background: {VIDEO_BG};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+}}
+QLabel#videoLabel {{
+    color: {SUBTLE};
+    font-size: 13px;
+    background: {VIDEO_BG};
+}}
+
+/* ---- Info panel ---- */
+QWidget#infoPanel {{
+    background: {PANEL_BG};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+}}
+QLabel#infoKey {{
+    color: {LABEL};
+    font-size: 11px;
+    font-weight: 600;
+}}
+QLabel#infoVal {{
+    color: {TEXT};
+    font-size: 14px;
+    font-weight: 600;
+}}
+
+/* ---- Device pills ---- */
+QWidget#pillRow {{ background: transparent; }}
+QPushButton#pillOk {{
+    background: {SUCCESS};
+    border: 1px solid {SUCCESS_DARK};
+    border-radius: 16px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    min-height: 28px;
+}}
+QPushButton#pillWarn {{
+    background: {WARNING};
+    border: 1px solid {WARNING};
+    border-radius: 16px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    min-height: 28px;
+}}
+QPushButton#pillErr {{
+    background: {DANGER};
+    border: 1px solid {DANGER_DARK};
+    border-radius: 16px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    min-height: 28px;
+}}
+QPushButton#pillIdle {{
+    background: {CHIP_BG};
+    border: 1px solid {BORDER};
+    border-radius: 16px;
+    color: {LABEL};
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 14px;
+    min-height: 28px;
+}}
+
+/* ---- Console ---- */
+QTextEdit#console {{
+    background: {CONSOLE_BG};
+    border: 1px solid {BORDER};
+    border-radius: 6px;
+    color: {LABEL};
+    font-family: "Courier New", "Menlo", monospace;
+    font-size: 11px;
+    padding: 4px;
+}}
+
+/* ---- Scan buttons ---- */
+QPushButton#btnStart {{
+    background: {SUCCESS};
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 42px;
+    padding: 0 28px;
+}}
+QPushButton#btnStart:hover    {{ background: {SUCCESS_DARK}; }}
+QPushButton#btnStart:disabled {{ background: {DISABLED_BG}; color: {DISABLED_TEXT}; }}
+
+QPushButton#btnStop {{
+    background: {DANGER};
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 42px;
+    padding: 0 28px;
+}}
+QPushButton#btnStop:hover    {{ background: {DANGER_DARK}; }}
+QPushButton#btnStop:disabled {{ background: {DISABLED_BG}; color: {DISABLED_TEXT}; }}
+
+QPushButton#btnNext {{
+    background: {PANEL_BG};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+    color: {TEXT};
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 42px;
+    padding: 0 28px;
+}}
+QPushButton#btnNext:hover    {{ background: {BTN_HOVER_WASH}; }}
+QPushButton#btnNext:disabled {{ background: {DISABLED_BG}; color: {DISABLED_TEXT}; }}
+
+/* ---- Touch-friendly scrollbar ---- */
+QScrollBar:vertical {{
+    background: {SCROLL_TRACK};
+    width: 20px;
+    margin: 0;
+}}
+QScrollBar::handle:vertical {{
+    background: {SCROLL_THUMB};
+    border-radius: 6px;
+    min-height: 30px;
+    margin: 2px;
+}}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{ height: 0; }}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {{ background: transparent; }}
+
+QScrollBar:horizontal {{
+    background: {SCROLL_TRACK};
+    height: 20px;
+    margin: 0;
+}}
+QScrollBar::handle:horizontal {{
+    background: {SCROLL_THUMB};
+    border-radius: 6px;
+    min-width: 30px;
+    margin: 2px;
+}}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {{ width: 0; }}
+
+/* ---- Generic popup (autocomplete) ---- */
+QAbstractItemView {{
+    background: {INPUT_BG};
+    border: 1px solid {BORDER};
+    selection-background-color: {PRIMARY};
+    selection-color: white;
+    color: {TEXT};
+    outline: none;
+}}

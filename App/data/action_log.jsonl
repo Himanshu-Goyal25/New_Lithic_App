@@ -1,0 +1,285 @@
+{"ts": "2026-05-13T21:51:40", "action": "app_started", "details": {"theme": "light"}}
+{"ts": "2026-05-13T21:53:47", "action": "app_started", "details": {"theme": "light"}}
+{"ts": "2026-05-13T21:59:02", "action": "app_started", "details": {"theme": "light"}}
+{"ts": "2026-05-13T21:59:20", "action": "theme_changed", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T21:59:27", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:02:11", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:05:49", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:07:29", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:13:42", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:14:02", "action": "theme_changed", "details": {"theme": "light"}}
+{"ts": "2026-05-13T22:14:10", "action": "app_started", "details": {"theme": "light"}}
+{"ts": "2026-05-13T22:14:41", "action": "theme_changed", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:14:47", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:18:45", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-13T22:22:06", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-14T01:36:16", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-14T01:37:49", "action": "app_started", "details": {"theme": "dark"}}
+{"ts": "2026-05-14T01:42:29", "action": "scan_started", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_may/Magnum_Residency_Floor2_fdhdfh_1778703146", "site": "Magnum Residency", "incharge": "Himanshu"}}
+{"ts": "2026-05-14T01:43:24", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_may/Magnum_Residency_Floor2_fdhdfh_1778703146", "reason": "manual", "auto": false}}
+{"ts": "2026-05-14T01:46:57", "action": "theme_changed", "details": {"theme": "light"}}
+{"ts": "2026-05-14T02:15:53", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 229578960}}
+{"ts": "2026-05-14T02:15:57", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 8508}}
+{"ts": "2026-05-14T02:16:27", "action": "scan_started", "details": {"site": "Tower Block A", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Tower_Block_A_Floor3_dsf_20260514_021624"}}
+{"ts": "2026-05-14T02:17:02", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Tower_Block_A_Floor3_dsf_20260514_021624"}}
+{"ts": "2026-05-14T02:21:56", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Ground_Floor_cv_20260514_022153"}}
+{"ts": "2026-05-14T02:22:09", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Ground_Floor_cv_20260514_022153"}}
+{"ts": "2026-05-14T02:39:52", "action": "scans_deleted", "details": {"count": 3, "failed": 0, "total_bytes": 1700265308}}
+{"ts": "2026-05-14T02:45:16", "action": "disk_unmounted", "details": {"mount": "/media/cm5-v1/Hardwar_IN"}}
+{"ts": "2026-05-14T03:10:15", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_Lets_go_20260514_031012"}}
+{"ts": "2026-05-14T03:11:39", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_Lets_go_20260514_031012"}}
+{"ts": "2026-05-14T03:12:43", "action": "copy_completed", "details": {"scans": 1, "dest": "/media/cm5-v1/Hardwar_IN/test_copy", "bytes": 1391596306}}
+{"ts": "2026-05-14T03:25:50", "action": "copy_completed", "details": {"scans": 1, "dest": "/media/cm5-v1/Hardwar_IN/test_copy", "bytes": 1391596306}}
+{"ts": "2026-05-14T03:26:21", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_dfg_20260514_032618"}}
+{"ts": "2026-05-14T03:39:19", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_dfg_20260514_032618"}}
+{"ts": "2026-05-14T03:39:46", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_d_20260514_033943"}}
+{"ts": "2026-05-14T03:18:54", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_sadf_20260514_031851"}}
+{"ts": "2026-05-14T03:25:55", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_sadf_20260514_031851"}}
+{"ts": "2026-05-14T03:32:00", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_asdf_20260514_033157"}}
+{"ts": "2026-05-14T03:51:04", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_asdf_20260514_033157"}}
+{"ts": "2026-05-14T03:52:20", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_035217"}}
+{"ts": "2026-05-14T03:56:42", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_035217"}}
+{"ts": "2026-05-14T03:57:04", "action": "scans_deleted", "details": {"count": 4, "failed": 0, "total_bytes": 28203477989}}
+{"ts": "2026-05-14T03:58:37", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_Hello_20260514_035834"}}
+{"ts": "2026-05-14T03:59:21", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_Hello_20260514_035834"}}
+{"ts": "2026-05-14T04:00:45", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_hg_20260514_040042"}}
+{"ts": "2026-05-14T04:01:00", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_hg_20260514_040042"}}
+{"ts": "2026-05-14T04:01:13", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dgh_20260514_040110"}}
+{"ts": "2026-05-14T04:01:25", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dgh_20260514_040110"}}
+{"ts": "2026-05-14T04:02:30", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_df_20260514_040227"}}
+{"ts": "2026-05-14T04:03:40", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_df_20260514_040227"}}
+{"ts": "2026-05-14T04:03:52", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_cv_20260514_040349"}}
+{"ts": "2026-05-14T04:04:00", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_cv_20260514_040349"}}
+{"ts": "2026-05-14T04:05:53", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_adf_20260514_040550"}}
+{"ts": "2026-05-14T04:06:03", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_adf_20260514_040550"}}
+{"ts": "2026-05-14T04:17:16", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_adf_20260514_041711"}}
+{"ts": "2026-05-14T04:17:23", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_adf_20260514_041711"}}
+{"ts": "2026-05-14T04:17:33", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_df_20260514_041730"}}
+{"ts": "2026-05-14T04:23:16", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_df_20260514_041730"}}
+{"ts": "2026-05-14T04:24:43", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_5u_20260514_042438"}}
+{"ts": "2026-05-14T04:30:12", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_5u_20260514_042438"}}
+{"ts": "2026-05-14T04:30:07", "action": "scan_started", "details": {"site": "test", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/test_Basement1_office_test_run_20260514_043002"}}
+{"ts": "2026-05-14T04:34:13", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/test_Basement1_office_test_run_20260514_043002"}}
+{"ts": "2026-05-14T05:34:43", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_Test_imu_Rate_20260514_053438"}}
+{"ts": "2026-05-14T05:39:51", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_Test_imu_Rate_20260514_053438"}}
+{"ts": "2026-05-14T06:09:22", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_dasf_20260514_060917"}}
+{"ts": "2026-05-14T06:11:20", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_dasf_20260514_060917"}}
+{"ts": "2026-05-14T06:22:48", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_dsf_20260514_062243"}}
+{"ts": "2026-05-14T06:25:02", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_dsf_20260514_062243"}}
+{"ts": "2026-05-14T07:00:39", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_dfg_20260514_070034"}}
+{"ts": "2026-05-14T07:01:58", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_dfg_20260514_070034"}}
+{"ts": "2026-05-14T07:09:25", "action": "scans_deleted", "details": {"count": 16, "failed": 0, "total_bytes": 52338677922}}
+{"ts": "2026-05-14T07:35:57", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sfh_20260514_073552"}}
+{"ts": "2026-05-14T07:37:40", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sfh_20260514_073552"}}
+{"ts": "2026-05-14T08:06:59", "action": "scan_started", "details": {"site": "Coorg", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Coorg_Floor1_fg_20260514_080655"}}
+{"ts": "2026-05-14T08:08:20", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Coorg_Floor1_fg_20260514_080655"}}
+{"ts": "2026-05-14T08:16:09", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_sdg_20260514_081604"}}
+{"ts": "2026-05-14T08:18:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_sdg_20260514_081604"}}
+{"ts": "2026-05-14T08:19:16", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dfg_20260514_081911"}}
+{"ts": "2026-05-14T08:22:55", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dfg_20260514_081911"}}
+{"ts": "2026-05-14T08:56:23", "action": "incharge_removed", "details": {"value": "adsf"}}
+{"ts": "2026-05-14T08:56:27", "action": "incharge_removed", "details": {"value": "Test1"}}
+{"ts": "2026-05-14T08:56:52", "action": "incharge_removed", "details": {"value": "adf"}}
+{"ts": "2026-05-14T08:57:30", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_Rotation_test_20260514_085727"}}
+{"ts": "2026-05-14T09:34:56", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_Rotation_test_20260514_085727"}}
+{"ts": "2026-05-14T09:35:19", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_test_scan_20260514_093516"}}
+{"ts": "2026-05-14T09:51:13", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_dfh_20260514_095108"}}
+{"ts": "2026-05-14T10:02:18", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_dfh_20260514_095108"}}
+{"ts": "2026-05-14T10:03:35", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dfs_20260514_100331"}}
+{"ts": "2026-05-14T10:11:55", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_dfs_20260514_100331"}}
+{"ts": "2026-05-14T10:12:17", "action": "scans_deleted", "details": {"count": 7, "failed": 1, "total_bytes": 67665183627}}
+{"ts": "2026-05-14T10:12:24", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T10:12:41", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T10:14:26", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T10:14:32", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T10:14:49", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_sfg_20260514_101444"}}
+{"ts": "2026-05-14T10:15:54", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_sfg_20260514_101444"}}
+{"ts": "2026-05-14T10:31:23", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_adsf_20260514_103118"}}
+{"ts": "2026-05-14T10:32:54", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_adsf_20260514_103118"}}
+{"ts": "2026-05-14T13:21:31", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_132126"}}
+{"ts": "2026-05-14T13:24:48", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_132126"}}
+{"ts": "2026-05-14T13:32:03", "action": "scans_deleted", "details": {"count": 3, "failed": 1, "total_bytes": 6259273881}}
+{"ts": "2026-05-14T13:32:25", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_adsf_20260514_133220"}}
+{"ts": "2026-05-14T13:36:04", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_adsf_20260514_133220"}}
+{"ts": "2026-05-14T13:37:40", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sfg_20260514_133735"}}
+{"ts": "2026-05-14T13:41:24", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sfg_20260514_133735"}}
+{"ts": "2026-05-14T13:41:47", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sg_20260514_134141"}}
+{"ts": "2026-05-14T13:47:46", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_sg_20260514_134141"}}
+{"ts": "2026-05-14T13:48:07", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_gh_20260514_134802"}}
+{"ts": "2026-05-14T13:50:02", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_gh_20260514_134802"}}
+{"ts": "2026-05-14T13:57:42", "action": "scans_deleted", "details": {"count": 4, "failed": 0, "total_bytes": 15329222635}}
+{"ts": "2026-05-14T14:07:24", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_dcsa_20260514_140719"}}
+{"ts": "2026-05-14T14:13:04", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_dcsa_20260514_140719"}}
+{"ts": "2026-05-14T14:14:53", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_gch_20260514_141448"}}
+{"ts": "2026-05-14T14:23:26", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_gch_20260514_141448"}}
+{"ts": "2026-05-14T14:27:15", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_142710"}}
+{"ts": "2026-05-14T14:27:48", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_asdf_20260514_142710"}}
+{"ts": "2026-05-14T14:41:21", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_iuy_20260514_144116"}}
+{"ts": "2026-05-14T14:45:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_iuy_20260514_144116"}}
+{"ts": "2026-05-14T14:46:17", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Ground_Floor_-[_20260514_144612"}}
+{"ts": "2026-05-14T14:52:24", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Ground_Floor_-[_20260514_144612"}}
+{"ts": "2026-05-14T14:57:33", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_po_20260514_145728"}}
+{"ts": "2026-05-14T15:09:38", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 5099099035}}
+{"ts": "2026-05-14T15:09:44", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T15:11:07", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_kln_20260514_151103"}}
+{"ts": "2026-05-14T15:32:16", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_ytur8_20260514_153211"}}
+{"ts": "2026-05-14T15:32:21", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_ytur8_20260514_153211"}}
+{"ts": "2026-05-14T15:32:38", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_dfs_20260514_153234"}}
+{"ts": "2026-05-14T15:48:28", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_jy7_20260514_154824"}}
+{"ts": "2026-05-14T15:48:32", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_jy7_20260514_154824"}}
+{"ts": "2026-05-14T15:48:45", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_yh7n_20260514_154841"}}
+{"ts": "2026-05-14T15:56:22", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_9i_20260514_155618"}}
+{"ts": "2026-05-14T15:28:47", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_hygj_20260514_152842"}}
+{"ts": "2026-05-14T15:30:00", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Ground_Floor_hygj_20260514_152842"}}
+{"ts": "2026-05-14T15:30:14", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_jdfg_20260514_153011"}}
+{"ts": "2026-05-14T15:32:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_jdfg_20260514_153011"}}
+{"ts": "2026-05-14T15:32:57", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_yjut_20260514_153254"}}
+{"ts": "2026-05-14T15:33:56", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_yjut_20260514_153254"}}
+{"ts": "2026-05-14T15:34:53", "action": "scans_deleted", "details": {"count": 7, "failed": 2, "total_bytes": 8650177301}}
+{"ts": "2026-05-14T15:35:11", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 501780440}}
+{"ts": "2026-05-14T15:35:51", "action": "scan_started", "details": {"site": "Coorg", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Coorg_Floor1_wr_20260514_153546"}}
+{"ts": "2026-05-14T15:37:09", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Coorg_Floor1_wr_20260514_153546"}}
+{"ts": "2026-05-14T15:37:37", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_4u6_20260514_153732"}}
+{"ts": "2026-05-14T15:38:06", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_4u6_20260514_153732"}}
+{"ts": "2026-05-14T15:38:36", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_rtyj_20260514_153831"}}
+{"ts": "2026-05-14T15:41:15", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_rtyj_20260514_153831"}}
+{"ts": "2026-05-14T15:41:49", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_uuyt_20260514_154144"}}
+{"ts": "2026-05-14T15:43:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_uuyt_20260514_154144"}}
+{"ts": "2026-05-14T15:48:21", "action": "scans_deleted", "details": {"count": 4, "failed": 2, "total_bytes": 7234486011}}
+{"ts": "2026-05-14T15:48:46", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_yh_20260514_154841"}}
+{"ts": "2026-05-14T15:49:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_yh_20260514_154841"}}
+{"ts": "2026-05-14T15:50:14", "action": "scans_deleted", "details": {"count": 1, "failed": 2, "total_bytes": 1812096240}}
+{"ts": "2026-05-14T16:12:32", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_sdfg_20260514_161227"}}
+{"ts": "2026-05-14T15:28:15", "action": "scans_deleted", "details": {"count": 0, "failed": 3, "total_bytes": 1876164999}}
+{"ts": "2026-05-14T15:28:25", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 350}}
+{"ts": "2026-05-14T15:51:34", "action": "scans_deleted", "details": {"count": 0, "failed": 3, "total_bytes": 873030450}}
+{"ts": "2026-05-14T15:27:45", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T15:54:53", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T15:55:34", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Basement1_fdsg_20260514_155529"}}
+{"ts": "2026-05-14T15:59:00", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Basement1_fdsg_20260514_155529"}}
+{"ts": "2026-05-14T15:59:53", "action": "copy_completed", "details": {"scans": 1, "dest": "/media/cm5-v1/Samsung_NVM/test_4", "bytes": 3432825543}}
+{"ts": "2026-05-14T16:02:12", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 3432825543}}
+{"ts": "2026-05-14T16:06:45", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_fdg_20260514_160641"}}
+{"ts": "2026-05-14T16:19:55", "action": "copy_completed", "details": {"scans": 1, "dest": "/media/cm5-v1/Samsung_NVM/test_4", "bytes": 21752512612}}
+{"ts": "2026-05-14T16:21:50", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 21752512612}}
+{"ts": "2026-05-14T18:04:14", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_fjh_20260514_180409"}}
+{"ts": "2026-05-14T18:44:37", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_fjh_20260514_180409"}}
+{"ts": "2026-05-14T18:45:29", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_yty_20260514_184525"}}
+{"ts": "2026-05-14T19:27:12", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Ira_Floor1_yty_20260514_184525"}}
+{"ts": "2026-05-14T19:36:20", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/Samsung_NVM", "bytes": 82349308621}}
+{"ts": "2026-05-14T19:36:29", "action": "disk_unmounted", "details": {"mount": "/media/cm5-v1/Samsung_NVM"}}
+{"ts": "2026-05-14T19:18:43", "action": "scans_deleted", "details": {"count": 2, "failed": 0, "total_bytes": 82349308621}}
+{"ts": "2026-05-14T19:20:52", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T19:31:50", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_test_scan_25-may_20260514_193145"}}
+{"ts": "2026-05-14T19:42:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_test_scan_25-may_20260514_193145"}}
+{"ts": "2026-05-14T19:31:40", "action": "scan_started", "details": {"site": "test", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/test_Floor1_test_20260514_193135"}}
+                                                                                                                                                            {"ts": "2026-05-14T19:35:33", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_B1_PART_A_20260514_193528"}}
+{"ts": "2026-05-14T19:42:24", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_B1_PART_A_20260514_193528"}}
+{"ts": "2026-05-14T19:32:28", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor3_3F_PART_A_20260514_193222"}}
+{"ts": "2026-05-14T19:34:37", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor3_3F_PART_A_20260514_193222"}}
+{"ts": "2026-05-14T19:35:44", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor3_FL_3_PART_A_20260514_193541"}}
+{"ts": "2026-05-14T19:42:09", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor3_FL_3_PART_A_20260514_193541"}}
+{"ts": "2026-05-14T19:44:14", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor2_FL_2_PART_A_20260514_194410"}}
+{"ts": "2026-05-14T19:50:33", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor2_FL_2_PART_A_20260514_194410"}}
+{"ts": "2026-05-14T19:54:33", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_1F_PART-A_20260514_195430"}}
+{"ts": "2026-05-14T20:09:57", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Floor1_1F_PART-A_20260514_195430"}}
+{"ts": "2026-05-14T20:12:45", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Ground_Floor_GF_PART_A_20260514_201242"}}
+{"ts": "2026-05-14T20:35:05", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Ground_Floor_GF_PART_A_20260514_201242"}}
+{"ts": "2026-05-14T20:38:47", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Basement1_B1_PART_A_20260514_203843"}}
+{"ts": "2026-05-14T20:45:31", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Platino_Basement1_B1_PART_A_20260514_203843"}}
+{"ts": "2026-05-14T20:30:02", "action": "copy_failed", "details": {"scans": 5, "dest": "/media/cm5-v1/Samsung_T7", "bytes": 57149023818}}
+{"ts": "2026-05-14T20:35:24", "action": "copy_completed", "details": {"scans": 5, "dest": "/media/cm5-v1/Samsung_T7/25_MAY_PLATINO_HESAI", "bytes": 57149023818}}
+{"ts": "2026-05-14T20:17:55", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_hjk_20260514_201749"}}
+{"ts": "2026-05-14T20:19:45", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_hjk_20260514_201749"}}
+{"ts": "2026-05-14T20:59:52", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_hello_20260514_205947"}}
+{"ts": "2026-05-14T21:16:46", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Raja_Magnum_Floor1_hello_20260514_205947"}}
+{"ts": "2026-05-14T21:37:00", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_HEllo_1_20260514_213655"}}
+{"ts": "2026-05-14T21:44:49", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_HEllo_1_20260514_213655"}}
+{"ts": "2026-05-14T21:46:00", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor3_sth_20260514_214555"}}
+{"ts": "2026-05-14T21:49:07", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor3_sth_20260514_214555"}}
+{"ts": "2026-05-14T21:51:02", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_wret_20260514_215057"}}
+{"ts": "2026-05-14T21:52:56", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_wret_20260514_215057"}}
+{"ts": "2026-05-14T21:54:21", "action": "scans_deleted", "details": {"count": 4, "failed": 0, "total_bytes": 29792698750}}
+{"ts": "2026-05-14T21:54:30", "action": "scans_deleted", "details": {"count": 0, "failed": 1, "total_bytes": 371249660}}
+{"ts": "2026-05-14T21:56:37", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_tjh_20260514_215632"}}
+{"ts": "2026-05-14T21:57:11", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/df_Floor1_tjh_20260514_215632"}}
+{"ts": "2026-05-14T21:57:27", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_tyui_20260514_215724"}}
+{"ts": "2026-05-14T21:57:39", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_tyui_20260514_215724"}}
+{"ts": "2026-05-14T21:58:07", "action": "scan_started", "details": {"site": "Piramal", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_tyui_20260514_215802"}}
+{"ts": "2026-05-14T22:06:58", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Piramal_Floor1_tyui_20260514_215802"}}
+{"ts": "2026-05-14T22:07:20", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_gcf_20260514_220716"}}
+{"ts": "2026-05-14T22:18:50", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/Machani_Floor1_gcf_20260514_220716"}}
+{"ts": "2026-05-14T22:19:01", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_dzfvg_20260514_221858"}}
+{"ts": "2026-05-14T22:24:11", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_dzfvg_20260514_221858"}}
+{"ts": "2026-05-14T22:24:24", "action": "scans_deleted", "details": {"count": 5, "failed": 0, "total_bytes": 26394509843}}
+{"ts": "2026-05-14T22:53:01", "action": "scan_started", "details": {"site": "HPCL", "folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_sdtr_20260514_225256"}}
+{"ts": "2026-05-14T22:53:04", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/14_MAY/HPCL_Floor1_sdtr_20260514_225256"}}
+{"ts": "2026-05-15T00:20:08", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_002003"}}
+{"ts": "2026-05-15T00:31:10", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_002003"}}
+{"ts": "2026-05-15T00:19:59", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor2_PART_B__20260515_001954"}}
+{"ts": "2026-05-15T00:26:28", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor2_PART_B__20260515_001954"}}
+{"ts": "2026-05-15T00:34:46", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor3_PART-B_20260515_003442"}}
+{"ts": "2026-05-15T00:40:17", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor3_PART-B_20260515_003442"}}
+{"ts": "2026-05-15T00:48:11", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_PART_B_PART_1_20260515_004807"}}
+{"ts": "2026-05-15T00:56:33", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_PART_B_PART_1_20260515_004807"}}
+{"ts": "2026-05-15T01:06:13", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_PART_B_PART_2_20260515_010609"}}
+{"ts": "2026-05-15T01:19:51", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_PART_B_PART_2_20260515_010609"}}
+{"ts": "2026-05-15T01:25:23", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_CLUBHOUSE_GF_20260515_012518"}}
+{"ts": "2026-05-15T01:29:17", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_CLUBHOUSE_GF_20260515_012518"}}
+{"ts": "2026-05-15T01:30:04", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_CLUBHOUSE-1F_20260515_013001"}}
+{"ts": "2026-05-15T01:32:38", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Floor1_CLUBHOUSE-1F_20260515_013001"}}
+{"ts": "2026-05-15T01:49:08", "action": "copy_completed", "details": {"scans": 5, "dest": "/media/cm5-v1/NewFormated/26_MAY_PLATINO_HESAI", "bytes": 26881200218}}
+{"ts": "2026-05-15T01:26:54", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_012649"}}
+{"ts": "2026-05-15T01:34:59", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_012649"}}
+{"ts": "2026-05-15T01:20:21", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor3_FL_3_20260515_012016"}}
+{"ts": "2026-05-15T01:26:21", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor3_FL_3_20260515_012016"}}
+{"ts": "2026-05-15T01:26:56", "action": "scans_deleted", "details": {"count": 1, "failed": 0, "total_bytes": 8127361428}}
+{"ts": "2026-05-15T01:18:30", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor2_FL_2_20260515_011825"}}
+{"ts": "2026-05-15T01:27:42", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor2_FL_2_20260515_011825"}}
+{"ts": "2026-05-15T01:30:35", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_1_20260515_013032"}}
+{"ts": "2026-05-15T01:39:38", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_1_20260515_013032"}}
+{"ts": "2026-05-15T01:41:03", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_2_20260515_014059"}}
+{"ts": "2026-05-15T01:46:56", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_2_20260515_014059"}}
+{"ts": "2026-05-15T01:48:45", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_3_20260515_014841"}}
+{"ts": "2026-05-15T01:55:46", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_3_20260515_014841"}}
+{"ts": "2026-05-15T01:56:44", "action": "scan_started", "details": {"site": "Raja Magnum", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_4_20260515_015641"}}
+{"ts": "2026-05-15T02:02:45", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Magnum_Floor1_GF_PART_4_20260515_015641"}}
+{"ts": "2026-05-15T01:24:47", "action": "copy_completed", "details": {"scans": 6, "dest": "/media/cm5-v1/NewFormated/27_MAY_MAGNUM_HESAI", "bytes": 43402273205}}
+{"ts": "2026-05-15T01:36:52", "action": "copy_failed", "details": {"scans": 8, "dest": "/media/cm5-v1/NewFormated/26_PLATINO_1F_RECOPY", "bytes": 65362185698}}
+{"ts": "2026-05-15T01:39:59", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/NewFormated/26_PLATINO_1F_RECOPY", "bytes": 21959912493}}
+{"ts": "2026-05-15T01:17:56", "action": "scan_started", "details": {"site": "df", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_011751"}}
+{"ts": "2026-05-15T01:22:32", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/df_Floor1_test_20260515_011751"}}
+{"ts": "2026-05-15T01:19:14", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Basement1_PART_B_20260515_011908"}}
+{"ts": "2026-05-15T01:34:48", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Raja_Platino_Basement1_PART_B_20260515_011908"}}
+{"ts": "2026-05-15T02:18:28", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Machani_Ground_Floor_test_ext4_20260515_021823"}}
+{"ts": "2026-05-15T02:29:37", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/15_MAY/Machani_Ground_Floor_test_ext4_20260515_021823"}}
+{"ts": "2026-05-28T16:42:33", "action": "scan_started", "details": {"site": "Raja Ira", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Ira_Ground_Floor_hh_20260528_164227"}}
+{"ts": "2026-05-28T16:43:09", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Ira_Ground_Floor_hh_20260528_164227"}}
+{"ts": "2026-05-28T17:22:44", "action": "copy_failed", "details": {"scans": 1, "dest": "/media/cm5-v1/Samsung_T7", "bytes": 632191286}}
+{"ts": "2026-05-28T17:24:06", "action": "copy_failed", "details": {"scans": 1, "dest": "/media/cm5-v1/Samsung_T7", "bytes": 11204655904}}
+{"ts": "2026-05-28T17:26:22", "action": "scan_started", "details": {"site": "test", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_test_20260528_172617"}}
+{"ts": "2026-05-28T17:36:39", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_test_20260528_172617"}}
+{"ts": "2026-05-28T17:41:10", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Platino_Floor5_PART_A_TERRACE_R1_20260528_174104"}}
+{"ts": "2026-05-28T17:46:44", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Platino_Floor5_PART_A_TERRACE_R1_20260528_174104"}}
+{"ts": "2026-05-28T17:48:43", "action": "scan_started", "details": {"site": "Raja Platino", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Platino_Floor5_PART_A_TERRACE_R2_20260528_174840"}}
+{"ts": "2026-05-28T17:54:20", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Raja_Platino_Floor5_PART_A_TERRACE_R2_20260528_174840"}}
+{"ts": "2026-05-28T17:58:36", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/Samsung_T7/2_JUNE_RAJA_PLATINO_HESAI", "bytes": 11260212952}}
+{"ts": "2026-05-28T18:04:32", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor4_Full_20260528_180427"}}
+{"ts": "2026-05-28T18:19:35", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor4_Full_20260528_180427"}}
+{"ts": "2026-05-28T18:25:14", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor3_Full_20260528_182510"}}
+{"ts": "2026-05-28T18:48:59", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor3_Full_20260528_182510"}}
+{"ts": "2026-05-28T18:54:27", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/Samsung_T7", "bytes": 38969552621}}
+{"ts": "2026-05-28T18:50:31", "action": "scan_started", "details": {"site": "test", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_test_20260528_185025"}}
+{"ts": "2026-05-28T18:55:43", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_test_20260528_185025"}}
+{"ts": "2026-05-28T19:01:50", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor1_Full_20260528_190145"}}
+{"ts": "2026-05-28T19:18:25", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor1_Full_20260528_190145"}}
+{"ts": "2026-05-28T19:20:32", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor2_FULL_20260528_192026"}}
+{"ts": "2026-05-28T19:40:03", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Floor2_FULL_20260528_192026"}}
+{"ts": "2026-05-28T20:01:37", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/FIELD SSD1/4_JUNE_MIDC", "bytes": 36248250919}}
+{"ts": "2026-05-28T19:41:41", "action": "scan_started", "details": {"site": "test", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_TEST_20260528_194136"}}
+{"ts": "2026-05-28T19:46:16", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/test_Floor1_TEST_20260528_194136"}}
+{"ts": "2026-05-28T19:55:49", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Ground_Floor_Full_20260528_195544"}}
+{"ts": "2026-05-28T20:12:23", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Ground_Floor_Full_20260528_195544"}}
+{"ts": "2026-05-28T20:14:26", "action": "scan_started", "details": {"site": "Machani", "folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Basement1_Full_20260528_201421"}}
+{"ts": "2026-05-28T20:32:01", "action": "scan_stopped", "details": {"folder": "/media/cm5-v1/DATA/dumps/may_2026/28_MAY/Machani_Basement1_Full_20260528_201421"}}
+{"ts": "2026-05-28T20:38:14", "action": "copy_completed", "details": {"scans": 2, "dest": "/media/cm5-v1/Samsung_T7/5_JUNE_MIDC", "bytes": 34304531700}}

@@ -1,0 +1,5 @@
+PySide6>=6.6.0
+PySide6-Essentials>=6.6.0
+rospkg>=1.5.0
+numpy>=1.21.0
+pyserial>=3.5
