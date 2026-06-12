@@ -133,6 +133,12 @@ Key architectural choices:
 Inside the GUI process, the relevant threads:
 
 - **Qt main thread** — event loop, all widget updates.
+- **`_launch_worker`** (`core/ros_controller.py`) — spawned per scan by
+  `launch()`. Does the slow part of starting a scan (roscore bring-up,
+  `roslaunch` spawn, spin-thread settle, OOM-protect kickoff) so the
+  Start tap never freezes the GUI. `is_running()` reports True while it
+  runs (`_launching`); its side effects are generation-guarded against
+  `stop()` via `_llock` (see §5).
 - **`_ROSSpinThread`** (`core/ros_controller.py`) — only active when the
   app needs to subscribe to image topics (currently no-op because
   `config.VIEW_TOPIC` is empty).
@@ -192,16 +198,17 @@ New_Lithic_App/
         ├── supervisor.py                  PIN storage + verify + time-limited unlock state
         ├── supervisor_dialog.py           PIN entry dialog
         ├── supervisor_tools.py            admin dialogs (change PIN / device id / dev mode / CSVs / log)
+        ├── osk.py                         squeekboard show/hide via DBus on focus changes
         └── make_icon.py                   utility: generates an icon PNG from the brand glyph
 ```
 
-Total: ~8000 lines of Python.
+Total: ~8500 lines of Python.
 
 ---
 
 ## 5. Per-file reference
 
-### `App/main.py` (236 lines)
+### `App/main.py` (268 lines)
 
 - Inserts the `App/` directory onto `sys.path` so `import config` works.
 - Single-instance guard via `QLocalServer` / `QLocalSocket` so
@@ -237,7 +244,7 @@ doesn't invalidate earlier entries.
 
 Surfaces in the GUI through `Settings → Supervisor → View Action Log`.
 
-### `App/core/qa_worker.py` (309 lines)
+### `App/core/qa_worker.py` (308 lines)
 
 Real-time quality monitoring during a scan. Three independent checks:
 
@@ -268,7 +275,7 @@ Signals:
 - `bag_checked(results)` — currently unused on the receiver side
   (the player builds its own per-bag display in `_check_bag_rotation`).
 
-### `App/core/ros_controller.py` (714 lines)
+### `App/core/ros_controller.py` (835 lines)
 
 Encapsulates everything ROS-related so the GUI never imports rospy
 directly. Public surface:
@@ -279,14 +286,38 @@ ros.frame_received.connect(slot)   # signal(topic: str, image: QImage)
 ros.launch_died.connect(slot)
 ros.log.connect(slot)              # signal(msg, level)
 
-ros.launch(launch_file, args, metadata=...)
+ros.launch(launch_file, args, metadata=...)   # ASYNC — returns immediately
 ros.subscribe(topic, msg_type)     # no-op shim
 ros.stop()                         # synchronous; caller should wrap in thread
 ros.app_log(msg)                   # tee to <scan_folder>/app.log
-ros.is_running()
+ros.is_running()                   # True while launching OR roslaunch alive
 ros.driver_live(driver_key)        # bool: rosnode list contains the driver's node
 RosController.shutdown_roscore()   # class method, called at app exit
 ```
+
+`launch()` is **asynchronous**: it does the fast prep (scan-folder
+paths, app.log header, command string), sets `_launching = True`, bumps
+`_launch_gen`, and hands the rest to a `_launch_worker` daemon thread.
+The worker brings up roscore (up to ~10 s on a cold boot), spawns
+`roslaunch`, starts the process monitor + `_NodeMonitor`, settles 3 s,
+then starts the spin thread and OOM-protect worker. The GUI never
+blocks on Start.
+
+Concurrency contract with `stop()` (the part that makes the async safe):
+
+- **`is_running()` counts `_launching` as alive**, so the QA watchdog's
+  "roslaunch process died" check can't fire during the bring-up window.
+- **`stop()` bumps `_launch_gen` under `_llock`**; every side-effecting
+  block in the worker re-checks the gen *inside* the same lock before
+  acting (spawn roslaunch, start `_NodeMonitor`, publish + start the
+  spin thread). Result: each worker side effect either completed before
+  the bump (and stop()'s teardown cleans it up) or never happens. An
+  operator stopping 2 s after starting aborts the launch cleanly.
+- The lock is held only for microsecond-scale operations — never across
+  the 3-s settle, joins, or roscore wait — so it cannot deadlock.
+- The spin thread is built on a local and published to `self._thread`
+  only under the lock (it's created on the worker thread, so it has no
+  QObject parent — Qt forbids cross-thread parenting).
 
 Internal pieces:
 
@@ -307,22 +338,39 @@ Internal pieces:
   take it down. Cached at class level so a single instance is shared.
 - **`shutdown_roscore`** — class method called at app exit
   (`atexit` in `main.py`) that kills the persistent master.
-- **`_oom_protect_drivers`** — background worker that polls
-  `pgrep -x <name>` until each entry in `_OOM_PROTECT_PROCS`
-  appears, then batches their PIDs through
+- **`_oom_protect_drivers`** — background worker that tails the
+  roslaunch session log (`~/.ros/log/latest/roslaunch-*.log`) for
+  `process[<name>-N]: started with pid [Y]` lines, forwards them to the
+  on-screen console, and pushes the PIDs of data-critical processes
+  (`hesai_ros_driver_node`, `xsens_mti_node`, `rosbag_record`) through
   `sudo /usr/local/sbin/lithic-oom-protect <pids>`.
+- **`_cleanup_ros`** — per-scan teardown: `rosnode kill` everything not
+  on the keep list, then a belt-and-braces
+  `killall roslaunch hesai_ros_driver_node seek_driver xsens_mti_node
+  record`. `record` (the actual binary name of the rosbag recorder) is
+  on the list because a straggler recorder keeps the `.bag.active`
+  open and corrupts its tail.
 
-### `App/gui/main_window.py` (400 lines)
+### `App/gui/main_window.py` (495 lines)
 
 The shell window: frameless, fullscreen, contains:
 
-- **Title bar** — gradient brand label, fake macOS-style min/max/close
-  buttons (`_GradientLabel` paints with `QLinearGradient`).
-- **Sidebar** (`_NavButton` × 5: Home, Scan, Runs, Data Transfer, Menu).
+- **Title bar** — gradient brand label (`_GradientLabel` paints with
+  `QLinearGradient`), live clock, and three round buttons: OSK toggle
+  (⌨ pokes squeekboard via `gui/osk.py`), minimize, close.
+- **Sidebar** (`_NavButton` × 5: Home, Scan, Runs, Data Transfer, Menu),
+  plus a **Shutdown button** (⏻) above the device chip — confirm-gated
+  `systemctl poweroff`, refused while a scan is running. It exists
+  because pulling power without a clean shutdown has corrupted the SSD
+  before, and the kiosk exposes no terminal.
 - **Content stack** — `QStackedWidget` of the five pages.
 - **Footer** — scan indicator (left) + disk free/usage bar (right).
 - **Disk poll** — `QTimer` every 5 s refreshes the footer's
   `<scan_state> · Primary X GB free · External Y GB free` row.
+- **Scan-state wiring** — `scan_page.scan_state_changed` drives the nav
+  lockout (only the Scan tab is clickable mid-scan) AND
+  `home_page.set_scan_active`, which pauses Home's periodic dumps-tree
+  walk while recording.
 
 Also re-exports every theme constant (`BG`, `PRIMARY`, …) from
 `gui.theme.P` so the rest of the codebase can keep
@@ -376,7 +424,7 @@ switches to the player.
 Includes a `DeviceStatusPanel` in its right sidebar so the operator
 sees readiness while filling out the form.
 
-### `App/gui/scan_player.py` (1514 lines — the biggest file)
+### `App/gui/scan_player.py` (1616 lines — the biggest file)
 
 Live scan view. Owns:
 
@@ -387,21 +435,35 @@ Live scan view. Owns:
   `_pill_timer` (1 s) for LiDAR/IMU LIVE/DEAD pills
 - The console widget (rich-text QTextEdit, monospaced)
 
+Watchdog-only drivers (entries in `cfg.DRIVERS` with an empty topics
+dict, i.e. `rosbag`) are skipped in all three visual loops — the device
+pill grid, the status-card sensor rows, and the per-bag console block.
+They aren't sensors; the QA watchdog still monitors them and raises the
+alert overlay if they die.
+
 Lifecycle methods:
 
 - `begin(metadata)` — resets UI, called when the user clicks "Start Scan"
   on Scan Setup.
 - `_start_scan()` — pauses DeviceMonitor → resets bag tracking →
-  subscribes view topics (no-op here) → `ros.launch(...)` → starts
-  inotify watch + elapsed timer + pill timer + QA worker → shows the
-  startup-guidance overlay.
+  subscribes view topics (no-op here) → `ros.launch(...)` (async —
+  returns immediately, roscore + roslaunch start on a worker thread) →
+  starts inotify watch + elapsed timer + pill timer + QA worker → shows
+  the startup-guidance overlay → arms the 60-s no-bag tripwire
+  (`_check_first_bag_appeared`, generation-guarded).
 - `_stop_scan(after=...)` — sets stopping flag, freezes the recording
   UI immediately (stops `_elapsed_timer`, kills the pulsing dot,
   resets pills), spawns a daemon thread for `ros.stop()`, shows the
-  `_StoppingOverlay`, schedules a 30 s deadline.
+  `_StoppingOverlay`, schedules a 30 s deadline (generation-guarded,
+  so a deadline armed by a previous Stop can never fire against a
+  later one).
 - `_finish_stop()` — queued-connected to `_ros_stop_done`. Hides
   stopping overlay, sets buttons back, resumes DeviceMonitor,
   writes scan_info.json, fires the after-stop callback.
+- `_check_first_bag_appeared(gen)` — one-shot 60 s after Start: if the
+  scan folder still has zero `.bag` / `.bag.active` files, the recorder
+  is alive but not writing (wrong data_path, read-only disk, silent
+  rosbag failure) — auto-terminates with a clear reason.
 - `_auto_terminate(reason)` — used by QA and bag-corruption checks.
   Stops the scan + shows `_AlertOverlay` with the reason.
 
@@ -420,7 +482,7 @@ Bag rotation: handled by `_check_bag_rotation` via inotify. On each
 `rosbag.Bag()` raises (corrupt index), logs ERROR and auto-terminates
 immediately — see [§9 QA system](#9-qa-system).
 
-### `App/gui/scan_list.py` (1448 lines)
+### `App/gui/scan_list.py` (1453 lines)
 
 Reusable list widget used by Runs and Data Transfer pages, plus all the
 copy/delete/recovery machinery:
@@ -444,7 +506,7 @@ copy/delete/recovery machinery:
   dialog if `find_orphan_scans` finds anything. Called once at startup
   from `MainWindow`.
 
-### `App/gui/scan_stats.py` (266 lines)
+### `App/gui/scan_stats.py` (382 lines)
 
 Pure functions, no Qt:
 
@@ -460,26 +522,39 @@ Pure functions, no Qt:
 - `estimate_hours_remaining(free_bytes, gb_per_hour)`.
 - `find_external_mount()` / `find_all_external_mounts()` — USB
   detection across `/media`, `/run/media`, `/mnt`.
+- `ensure_external_drives_mounted()` — fallback automount: finds
+  unmounted USB partitions via `lsblk`, clears stale empty mount dirs,
+  and `udisksctl mount`s each candidate. Called by the Data Transfer
+  page before each refresh. Note: runs on the GUI thread; a slow NTFS
+  mount can stall the UI for up to ~10 s per partition.
 
-### `App/gui/home.py` (165 lines)
+### `App/gui/home.py` (180 lines)
 
 Three top cards (Device / Last Scan / Storage Free) + `DeviceStatusPanel`
 banner + a big "Start a New Scan" CTA that jumps to the Scan page.
-Auto-refreshes every 10 s.
+Auto-refreshes every 10 s — **paused while a scan is recording**
+(`set_scan_active`, wired from `scan_state_changed` in MainWindow):
+the refresh walks the entire dumps tree and stats every file, which
+would otherwise compete with rosbag's writes on the same disk every
+10 s, page visibility notwithstanding (QTimers fire regardless of
+which page is shown).
 
 ### `App/gui/runs.py` (71 lines)
 
 Thin wrapper: a `_GradientLabel` title, a refresh button, a total
 size readout, and a non-selectable `ScanListWidget`.
 
-### `App/gui/data_transfer.py` (317 lines)
+### `App/gui/data_transfer.py` (327 lines)
 
-Two columns: a "External Drive" status card on top (detects USB mounts
-via `find_external_mount`, polls every 5 s), then a selectable
-`ScanListWidget` of scans below, with Copy / Delete / Refresh / Eject
-buttons. Eject is run on a daemon thread (so the GUI doesn't freeze
+An "External Drive" status card on top (detects USB mounts via
+`ensure_external_drives_mounted` + `find_external_mount`), then a
+selectable `ScanListWidget` of scans below, with Copy / Delete /
+Refresh / Eject buttons. There is **no periodic polling** — the card
+refreshes on page entry (`showEvent` / `on_show`) and on the Detect
+button. Eject is run on a daemon thread (so the GUI doesn't freeze
 during sync) and reports success/failure via the queued
-`_eject_done` signal.
+`_eject_done` signal. The mount/detect path, by contrast, runs on the
+GUI thread (see `ensure_external_drives_mounted` note above).
 
 ### `App/gui/settings_page.py` (375 lines)
 
@@ -516,6 +591,17 @@ The admin dialogs themselves:
 - **`_CsvManagerDialog`** — edit Sites / In-charge CSVs in-place.
 - **`_ActionLogDialog`** — paginated read of `action_log.jsonl`.
 
+### `App/gui/osk.py` (136 lines)
+
+On-screen-keyboard helper for the touch kiosk. Listens for
+`QApplication.focusChanged`; when an editable widget gains focus it
+shows RPi OS's bundled `squeekboard` via its `sm.puri.OSK0` DBus
+interface (`gdbus call … SetVisible`), and hides it (debounced) when
+focus leaves. Installed once in `main.py` as `app._osk`; the title-bar
+⌨ button calls its `toggle()`. Degrades silently if `gdbus` or
+squeekboard is missing — `[osk]` lines in
+`/tmp/lithic-app-launch.log` show what it's doing.
+
 ### `App/gui/make_icon.py` (95 lines)
 
 Tool, not part of the runtime. Generates `Images/2739025.png` from the
@@ -539,6 +625,7 @@ two ways:
 | Key | Default | Meaning |
 |---|---|---|
 | `DEV_MODE` | `False` | If True, app runs with mock data and no real hardware. UI is identical; QA worker auto-passes; DeviceMonitor reports all green. |
+| `VERSION` | `'1.1.2'` | Single source of truth for the app version. Surfaced via `QCoreApplication.setApplicationVersion()` in `main.py`. Bump here on release. |
 | `DEVICE` | `'LITHIC_PRO_V2'` | Device identifier, embedded in bag filenames and scan_info.json. |
 
 ### ROS workspace
@@ -638,7 +725,9 @@ IMU readiness.
 
 A big primary "Start a New Scan" button jumps to the Scan page.
 
-Refreshes every 10 s.
+Refreshes every 10 s. The refresh is paused while a scan is recording —
+it walks the whole dumps tree, which would contend with rosbag's writes
+on the data drive — and resumes (with an immediate refresh) on Stop.
 
 ### Scan (sub-stack: Setup → Player)
 
@@ -677,7 +766,9 @@ refresh and view.
 
 - **External drive card** at top: shows the currently-mounted USB drive
   (path, label, free space) or "Plug in a USB drive to copy scans."
-  Polled every 5 s via `find_external_mount`.
+  Refreshed on page entry and via the Detect button (no periodic
+  polling); Detect also runs the `ensure_external_drives_mounted`
+  fallback automount for drives that pcmanfm/udisks missed.
 - **Eject button** runs `udisksctl unmount/power-off` on a daemon
   thread; result reported back via `_eject_done` signal.
 - **Scan list** below: selectable rows.
@@ -719,15 +810,22 @@ _start_scan()
   │ 4. QFileSystemWatcher.addPath(scan_folder)
   │ 5. ros.subscribe(... cfg.VIEW_TOPIC)  ← no-op currently
   │ 6. ros.launch(cfg.LAUNCH_FILE, {'data_path': scan_folder})
+  │       ← ASYNC: returns immediately; a _launch_worker daemon thread does
+  │       └─ _ensure_roscore()  (up to ~10 s on a cold boot — GUI not blocked)
   │       └─ subprocess.Popen(['bash','-c','source setup.bash && roslaunch ...'])
   │       └─ _NodeMonitor.start()
+  │       └─ 3 s settle → spin thread start
   │       └─ _oom_protect_drivers thread starts
+  │       (is_running() reports True throughout via _launching; every step
+  │        is gen-guarded so a quick Stop aborts the launch cleanly)
   │ 7. _elapsed_timer.start(1000)
   │ 8. _pill_timer.start()
   │ 9. qa.start(scan_folder, ros)
   │ 10. _set_scanning(True)               ← RECORDING pulse on, scan_state_changed.emit(True)
+  │                                          (also pauses Home's 10-s refresh walk)
   │ 11. _StartupGuide overlay shown (45 s STAY STILL → 15 s ROTATE → 5 s MOVING)
-  │ 12. audit.log_action('scan_started', site=..., folder=...)
+  │ 12. QTimer.singleShot(60 s, _check_first_bag_appeared)  ← gen-guarded no-bag tripwire
+  │ 13. audit.log_action('scan_started', site=..., folder=...)
   ▼
 … recording …
   │ - rosbag rolls a new file every 30 s
@@ -746,9 +844,12 @@ _stop_scan(after=None)
   │      ← UI immediately stops showing "RECORDING" and a climbing duration
   │ 4. _StoppingOverlay shown
   │ 5. threading.Thread(target=_run_ros_stop).start()
-  │      └─ ros.stop() — _nodes.stop, _thread.stop, _proc.terminate(5s), _cleanup_ros
+  │      └─ ros.stop() — cancels in-flight launch (bumps _launch_gen),
+  │         _nodes.stop, _thread.stop, _proc.terminate(5s), _cleanup_ros
   │      └─ emits _ros_stop_done (queued connection → _finish_stop on Qt thread)
-  │ 6. QTimer.singleShot(30 s, _stop_deadline_expired)  ← failsafe
+  │ 6. QTimer.singleShot(30 s, _stop_deadline_expired)  ← failsafe,
+  │      generation-guarded so a deadline from a previous Stop can't
+  │      fire against this one
   ▼
 _finish_stop()  (or _stop_deadline_expired after 30 s)
   │ 1. hide _StoppingOverlay; cancel _StartupGuide if still running
@@ -853,6 +954,27 @@ Independent of QAWorker. `_read_bag_topic_counts` is called from
 immediately calls `_auto_terminate(...)`. No streak required — one
 bad bag terminates the scan, because by the time you see one,
 recording integrity is already gone.
+
+### 9.5 No-bag tripwire — 60 s (in `scan_player.py`)
+
+Also independent of QAWorker. `_start_scan` arms a one-shot
+`QTimer.singleShot(60 s, _check_first_bag_appeared)`. If the scan
+folder still contains **zero** `.bag` / `.bag.active` files at that
+point, recording never started on disk — the recorder node may be
+alive (so the watchdog is happy) but writing nowhere: wrong
+`data_path` arg, read-only filesystem, or a silent rosbag failure.
+The scan is auto-terminated with a reason pointing at disk health
+and the data path.
+
+The callback captures `_stop_generation` when armed and bails if it no
+longer matches, so a tripwire from a stopped scan can never kill a
+subsequent one. Note the 60-s mark lands while the `_StartupGuide`
+overlay (65 s total) is still up — the alert overlay simply stacks
+above it.
+
+Together the four checks cover the failure matrix: drivers dead →
+watchdog (9.1); disk full → 9.2; data thin/missing → 9.3; bags corrupt
+→ 9.4; recorder writing nothing at all → 9.5.
 
 ---
 
@@ -960,8 +1082,11 @@ mark each one as Recover / Delete / Skip.
 
 ```
 1. _release_stale_rosbag_locks(folder):
-     - killall -TERM rosbag roslaunch hesai_ros_driver_node \
+     - killall -TERM rosbag record roslaunch hesai_ros_driver_node \
                             xsens_mti_node seek_driver
+       (`record` is the actual recorder binary — `rosbag` is only the
+        CLI wrapper; without it a live straggler still holds the
+        .bag.active open while we rename it)
      - sleep 0.4 s
      - rename any *.bag.active → *.bag (if .bag doesn't already exist)
 2. atomic write of scan_info.json with:
@@ -991,8 +1116,9 @@ the rate average.
 ```
 
 Actions currently logged: `scan_started`, `scan_stopped`, `scans_deleted`,
-`scans_copied`, `dev_mode_toggled`, `device_id_changed`, plus generic
-fallbacks from supervisor tools.
+`copy_completed` / `copy_failed`, `disk_unmounted` /
+`disk_unmount_failed`, `dev_mode_toggled`, `device_id_changed`, plus
+generic fallbacks from supervisor tools.
 
 Read back via Settings → Supervisor → View Action Log (paginated, 200
 entries per page).
@@ -1131,6 +1257,7 @@ pkill -f roscore
 pkill -f rosmaster
 pkill -f xsens_mti_node
 pkill -f hesai_ros_driver_node
+pkill -x record          # the rosbag recorder binary (-x: exact match)
 ```
 
 If the entire OS is frozen: the hardware reset button is the only path
@@ -1291,6 +1418,16 @@ tempted to "improve" them:
   msgs/bag dropped from the rosnode-list subprocess load; at 5 s the
   problem disappears and the operator's "is the driver alive?" feedback
   is still under 6 seconds.
+- **`launch()` is asynchronous, guarded by `_launch_gen` + `_llock`,
+  not a simpler "disable Stop until launched".** Cold-boot roscore can
+  take ~10 s; blocking the GUI for that long looks like a hang, and
+  greying out Stop during bring-up would leave the operator with no
+  way to abort a launch that's stuck. The generation handshake (every
+  worker side effect re-checks the gen inside the lock; `stop()` bumps
+  it inside the same lock) means a Stop at ANY point either cleans up
+  a completed step or prevents it from happening — no third state.
+  `is_running()` deliberately reports True while `_launching` so the
+  QA watchdog doesn't misread the bring-up window as a dead roslaunch.
 - **`fsync` is mandatory in the copy worker.** We learned the hard way:
   pulling the USB the moment "Copied" was displayed truncated the tail
   of the last bag because the data was still in the kernel's page cache.
