@@ -398,7 +398,12 @@ class ScanPlayerPage(QWidget):
 
         # ── Per-driver liveness rows ───────────────────────────────────
         self._sensor_rows: dict = {}   # driver -> dict of labels
-        for driver in config.DRIVERS:
+        for driver, topics_dict in config.DRIVERS.items():
+            # Skip watchdog-only entries (e.g. rosbag) that have no
+            # source topics — they aren't sensors and don't belong in
+            # the liveness card. The QA watchdog still monitors them.
+            if not topics_dict:
+                continue
             row, refs = self._make_sensor_row(driver)
             col.addLayout(row)
             self._sensor_rows[driver] = refs
@@ -789,7 +794,13 @@ class ScanPlayerPage(QWidget):
         gen = self._stop_generation
         threading.Thread(
             target=self._run_ros_stop, args=(gen,), daemon=True).start()
-        QTimer.singleShot(30_000, self._stop_deadline_expired)
+        # Generation-guarded like the 60-s tripwire: without `gen`, a
+        # deadline armed by a previous Stop could fire mid-teardown of a
+        # LATER stop (Stop A → Next Scan → Start B → Stop B inside A's
+        # 30-s window) and force _finish_stop while ros.stop() is still
+        # running.
+        QTimer.singleShot(
+            30_000, lambda g=gen: self._stop_deadline_expired(g))
 
     def _run_ros_stop(self, gen):
         try:
@@ -860,7 +871,9 @@ class ScanPlayerPage(QWidget):
                 print(f'[scan_player] after-stop callback raised: {e}',
                       file=sys.stderr)
 
-    def _stop_deadline_expired(self):
+    def _stop_deadline_expired(self, gen: int):
+        if gen != self._stop_generation:
+            return   # stale deadline from a previous stop
         if self._finish_stop_called:
             return
         self.log(

@@ -301,6 +301,13 @@ class RosController(QObject):
         self._monitor_thread = None
         self._monitor_stop = False
         self._stop_gen = 0
+        self._launch_gen = 0       # bumped by stop() to cancel an in-flight launch
+        self._launching = False    # True from launch() until roslaunch is spawned
+        # Makes the launch worker's "check _launch_gen, then act" atomic
+        # against stop()'s "bump _launch_gen". Held only for microsecond
+        # operations (Popen / thread starts) — NEVER across sleeps or
+        # joins, so it cannot deadlock.
+        self._llock = threading.Lock()
         self._scan_folder = None
         self._app_log_path = None
         self._requested_topics = set()
@@ -330,54 +337,99 @@ class RosController(QObject):
         arg_str = ' '.join(f'{k}:={v}' for k, v in args.items())
         cmd = f'source {setup} && roslaunch {launch_file} {arg_str}'
 
-        if cfg.DEV_MODE:
-            self.log.emit('DEV_MODE: skipping roslaunch', 'INFO')
-        else:
-            # Make sure a master is up BEFORE roslaunch starts, so it
-            # joins our persistent master rather than spawning its own.
-            # Otherwise stopping the scan kills roslaunch + its child
-            # master and the next scan has nothing to connect to.
-            self._ensure_roscore()
+        # Heavy work (roscore bring-up can take ~10 s on a cold boot,
+        # plus a 3 s settle before the spin thread) runs on a worker so
+        # the GUI doesn't freeze between the Start tap and the player
+        # becoming live. is_running() reports True while _launching so
+        # the QA watchdog doesn't misread the bring-up window as
+        # "roslaunch process died".
+        self._launching  = True
+        self._launch_gen += 1
+        gen = self._launch_gen
+        threading.Thread(
+            target=self._launch_worker,
+            args=(gen, launch_file, cmd, arg_str),
+            daemon=True).start()
 
-            self.log.emit(
-                f'roslaunch {os.path.basename(launch_file)} {arg_str}', 'INFO')
-            # IMPORTANT: stdout/stderr go to /dev/null, NOT PIPE.
-            # PIPE+line-read in a Python thread can't drain fast enough
-            # when the drivers log heavily — once the 64 KB pipe buffer
-            # fills, any child trying to write blocks, which back-pressures
-            # into the xsens UART loop and drops it from 200 → ~190 Hz.
-            # roslaunch's own logger still writes per-session logs to
-            # ~/.ros/log/, so nothing is lost for post-mortem analysis.
-            self._proc = subprocess.Popen(
-                ['bash', '-c', cmd],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-            self._monitor_stop = False
-            self._monitor_thread = threading.Thread(
-                target=self._monitor_proc, daemon=True)
-            self._monitor_thread.start()
+    def _launch_worker(self, gen: int, launch_file: str, cmd: str,
+                       arg_str: str):
+        try:
+            if cfg.DEV_MODE:
+                self.log.emit('DEV_MODE: skipping roslaunch', 'INFO')
+            else:
+                # Make sure a master is up BEFORE roslaunch starts, so it
+                # joins our persistent master rather than spawning its own.
+                # Otherwise stopping the scan kills roslaunch + its child
+                # master and the next scan has nothing to connect to.
+                self._ensure_roscore()
 
-        # Spin thread is now used ONLY for image display (view topics).
-        # Per-driver liveness comes from the NodeMonitor below.
-        self._thread = _ROSSpinThread(self)
-        self._thread.frame_received.connect(self.frame_received)
-        self._thread.log.connect(self.log)
+                # Atomic vs stop(): either we spawn roslaunch before
+                # stop() bumps the gen (so its teardown sees and kills
+                # the proc), or the check fails and nothing is spawned.
+                with self._llock:
+                    if gen != self._launch_gen:
+                        return   # stop() was called while roscore came up
+
+                    self.log.emit(
+                        f'roslaunch {os.path.basename(launch_file)} '
+                        f'{arg_str}',
+                        'INFO')
+                    # IMPORTANT: stdout/stderr go to /dev/null, NOT PIPE.
+                    # PIPE+line-read in a Python thread can't drain fast
+                    # enough when the drivers log heavily — once the 64 KB
+                    # pipe buffer fills, any child trying to write blocks,
+                    # which back-pressures into the xsens UART loop and
+                    # drops it from 200 → ~190 Hz. roslaunch's own logger
+                    # still writes per-session logs to ~/.ros/log/, so
+                    # nothing is lost for post-mortem analysis.
+                    self._proc = subprocess.Popen(
+                        ['bash', '-c', cmd],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                    )
+                    self._monitor_stop = False
+                    self._monitor_thread = threading.Thread(
+                        target=self._monitor_proc, daemon=True)
+                    self._monitor_thread.start()
+        finally:
+            # roslaunch is spawned (or launch was aborted) — from here
+            # is_running() reflects the real process state.
+            self._launching = False
+
+        # Begin polling `rosnode list` for per-driver liveness right
+        # away — the LIVE/DEAD pills shouldn't wait out the spin-thread
+        # settle below. Gen-guarded so a stop() that already tore the
+        # monitor down can't be followed by a stale start().
+        with self._llock:
+            if gen != self._launch_gen:
+                return
+            self._nodes.start()
+
+        # Spin thread is used ONLY for image display (view topics).
+        # No QObject parent: this worker is not the thread the
+        # controller lives in, and Qt forbids cross-thread parenting.
+        # Built on a LOCAL so a concurrent stop() never sees a created-
+        # but-unstarted thread; published to self._thread only under
+        # the gen lock below.
+        spin = _ROSSpinThread()
+        spin.frame_received.connect(self.frame_received)
+        spin.log.connect(self.log)
         if not cfg.DEV_MODE:
-            QThread.sleep(3)
-        self._thread.start()
+            QThread.sleep(3)   # settle — deliberately OUTSIDE the lock
 
-        # Begin polling `rosnode list` for per-driver liveness.
-        self._nodes.start()
+        with self._llock:
+            if gen != self._launch_gen:
+                return   # stopped during the settle; discard unstarted spin
+            self._thread = spin
+            spin.start()
 
-        # Mark each driver PID as OOM-protected so the kernel's
-        # OOM-killer will never pick them under memory pressure.
-        # Runs in a background thread because (a) driver PIDs aren't
-        # all up the instant roslaunch returns and (b) we don't want
-        # to block the GUI thread on a sudo call.
-        if not cfg.DEV_MODE:
-            threading.Thread(
-                target=self._oom_protect_drivers, daemon=True).start()
+            # Mark each driver PID as OOM-protected so the kernel's
+            # OOM-killer will never pick them under memory pressure.
+            # Driver PIDs aren't all up the instant roslaunch returns,
+            # so this polls in its own thread.
+            if not cfg.DEV_MODE:
+                threading.Thread(
+                    target=self._oom_protect_drivers, daemon=True).start()
 
     # ── OOM protection ─────────────────────────────────────────────────
     def _oom_protect_drivers(self):
@@ -505,6 +557,16 @@ class RosController(QObject):
 
     # ----------------------------------------------------------------- stop
     def stop(self):
+        # Cancel any launch still in flight (operator stopped within
+        # seconds of starting, while roscore was coming up). Under the
+        # lock so the worker's check-gen-then-act blocks are atomic
+        # against this bump: every worker side effect either completed
+        # before the bump (and the teardown below cleans it up) or its
+        # gen check fails and it never happens.
+        with self._llock:
+            self._launch_gen += 1
+            self._launching = False
+
         # Stop polling rosnode list FIRST so a probe doesn't try to talk
         # to a master that's about to go down.
         self._nodes.stop()
@@ -545,6 +607,11 @@ class RosController(QObject):
     # ----------------------------------------------------------------- helpers
     def is_running(self) -> bool:
         if cfg.DEV_MODE:
+            return True
+        # Launch worker hasn't spawned roslaunch yet (roscore still
+        # coming up) — report alive so the QA watchdog doesn't treat
+        # the bring-up window as a dead roslaunch.
+        if self._launching:
             return True
         return self._proc is not None and self._proc.poll() is None
 
@@ -610,10 +677,13 @@ class RosController(QObject):
         """Poll-only watchdog. We no longer drain roslaunch stdout (it's
         nailed to /dev/null), so there's no firehose to consume — we
         just poll the process handle to detect an unexpected exit."""
-        if not self._proc:
+        # Capture locally — stop() sets self._proc = None from another
+        # thread, and `self._proc.poll()` mid-loop would AttributeError.
+        proc = self._proc
+        if not proc:
             return
         while not self._monitor_stop:
-            if self._proc.poll() is not None:
+            if proc.poll() is not None:
                 break
             time.sleep(0.5)
 
@@ -665,10 +735,13 @@ class RosController(QObject):
         # 2) Belt-and-braces: SIGTERM any straggler driver binaries that
         #    rosnode couldn't reach (e.g. a driver that ignored the
         #    kill RPC). roslaunch itself was already terminated in stop().
+        #    'record' is the rosbag recorder binary (pkg="rosbag"
+        #    type="record" runs as `record`, not `rosbag`) — a straggler
+        #    here keeps the .bag.active open and corrupts the tail.
         try:
             subprocess.run(
                 ['killall', '-q', 'roslaunch', 'hesai_ros_driver_node',
-                 'seek_driver', 'xsens_mti_node'],
+                 'seek_driver', 'xsens_mti_node', 'record'],
                 capture_output=True, timeout=4)
         except Exception:
             pass
@@ -727,7 +800,7 @@ class RosController(QObject):
         for cmd in [
             f'source {setup} && rosnode kill -a',
             'killall -q roslaunch hesai_ros_driver_node seek_driver '
-            'xsens_mti_node',
+            'xsens_mti_node record',
         ]:
             try:
                 subprocess.run(['bash', '-c', cmd],

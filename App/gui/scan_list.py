@@ -1185,9 +1185,14 @@ def _release_stale_rosbag_locks(folder: str) -> None:
     can run `rosbag reindex` on it later if they need playback.
     """
     try:
+        # 'record' is the actual rosbag recorder binary — a launch-file
+        # <node pkg="rosbag" type="record"> runs as `record`, NOT as
+        # `rosbag` (that's only the CLI wrapper). Without it here, a
+        # straggler recorder still holds the .bag.active open while we
+        # rename it below — the exact corruption recovery exists to fix.
         subprocess.run(
             ['killall', '-q', '-TERM',
-             'rosbag', 'roslaunch',
+             'rosbag', 'record', 'roslaunch',
              'hesai_ros_driver_node', 'xsens_mti_node',
              'seek_driver'],
             timeout=3, check=False)

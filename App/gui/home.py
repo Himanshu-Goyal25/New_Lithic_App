@@ -117,6 +117,21 @@ class HomePage(QWidget):
 
     # ── Refresh ─────────────────────────────────────────────────────────────
 
+    def set_scan_active(self, scanning: bool):
+        """Pause the periodic refresh while a scan is recording.
+
+        `_refresh_all` → `list_scans` walks the ENTIRE dumps tree and
+        stats every file — on the same disk rosbag is writing to. The
+        timer fires even when Home isn't the visible page, so without
+        this it competes with the recorder every 10 s (same class of
+        contention as the 1-Hz listdir loop that cost ~50 IMU msgs/bag).
+        """
+        if scanning:
+            self._refresh_timer.stop()
+        else:
+            self._refresh_timer.start(10_000)
+            self._refresh_all()
+
     def _refresh_all(self):
         scans = list_scans(os.path.join(config.DUMP_PATH, 'dumps'))
         self._refresh_last_scan(scans)

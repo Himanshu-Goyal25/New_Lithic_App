@@ -350,6 +350,10 @@ class MainWindow(QWidget):
         self.stack.addWidget(self.settings_pg)
 
         self.scan_page.scan_state_changed.connect(self._on_scan_state_changed)
+        # Pause Home's periodic dumps-tree walk while recording — it
+        # contends with rosbag's writes on the data drive.
+        self.scan_page.scan_state_changed.connect(
+            self.home_page.set_scan_active)
         return self.stack
 
     def _build_footer(self) -> QHBoxLayout:
